@@ -23,7 +23,7 @@ const ProductAdd = () => {
 
         e.preventDefault();
     if(form && form.Nom && form.Quantite && form.image){
-      dispatch(addProduct({...form, id: Date.now()}))
+      dispatch(addProduct({name : form.Nom , quantity : form.Quantite, image : form.image}))
     }
     setForm({
       Nom: "",

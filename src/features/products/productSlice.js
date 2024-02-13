@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 const initialState = {
   products: [],
@@ -13,15 +14,34 @@ export const productSlice = createSlice({
     addProduct: (state, action) => {
       console.log(action)
       state.products.push(action.payload)
+      
+      axios.post('http://localhost:3000/products', action.payload)
+      .then(res => {
+        console.log(res.data, "data is adding !")
+      })
+      .catch(err => console.log(err))
+      
     },
+
+    addProducts: (state, action) => {
+      
+      state.products = action.payload
+      
+    },
+
     editProduct: (state, action) => {
 
       state.product = action.payload
     },
     deleteProduct: (state, action) => {
       
-      return state.products.filter((product) => product.id !== action.payload.id);
-   
+     // return state.products.filter((product) => product.id !== action.payload.id);
+     /* axios.delete('http://localhost:3000/products/' +  action.payload._id)
+     .then(res => {
+       console.log(res.data, "data is deleting !")
+     })
+     .catch(err => console.log(err)) */
+     console.log('http://localhost:3000/products/' +  action.payload._id)
     },
 
     ModifProducts: (state, action) => {
@@ -46,6 +66,6 @@ export const productSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addProduct, editProduct, deleteProduct, ModifProducts } = productSlice.actions
+export const { addProduct, editProduct, deleteProduct, ModifProducts, addProducts } = productSlice.actions
 
 export default productSlice.reducer

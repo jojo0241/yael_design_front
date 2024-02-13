@@ -11,9 +11,14 @@ import ProductItem from './ProductItem';
 import CategoryAdd from './CategoryAdd';
 import CategoryList from './CategoryList';
 import ModifyItem from './ModifyPItem';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 
 function HomePage() {
+
+ 
+
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">

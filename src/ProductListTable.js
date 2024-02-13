@@ -2,12 +2,31 @@ import Container from 'react-bootstrap/Container';
 
 import { useSelector } from 'react-redux'
 import Table from 'react-bootstrap/Table';
+import { useDispatch } from 'react-redux'
+import { addProducts } from './features/products/productSlice';
+import { useEffect } from 'react';
+import axios from 'axios';
+
 
 const ProductTable = () => {
 
 
     const products = useSelector((state) => state.products.products)
-  
+    const dispatch = useDispatch()
+
+   
+
+    useEffect( ()=> {
+
+      axios.get('http://localhost:3000/products')
+      .then(res => {
+        dispatch(addProducts(res.data))
+        console.log(res.data)
+      })
+      .catch(err => console.log(err))
+      
+    }, [])
+      console.log(products)
       return (
         <>
           
@@ -33,9 +52,9 @@ const ProductTable = () => {
 <tbody>
 
 <tr key={key}>
-  <td>{product?.id}</td>
-  <td>{product?.Nom}</td>
-  <td>{product?.Quantite}</td>
+  <td>{product?._id}</td>
+  <td>{product?.name}</td>
+  <td>{product?.quantity}</td>
   <td>{product?.image}</td>
 </tr>
 

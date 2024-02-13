@@ -4,6 +4,10 @@ import Container from 'react-bootstrap/Container';
 
 import { useSelector } from 'react-redux'
 import ProductCard from './ProductCard';
+import { useDispatch } from 'react-redux';
+import { addProducts } from './features/products/productSlice';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 
 
@@ -11,6 +15,19 @@ const Presentation = () => {
 
 
   const products = useSelector((state) => state.products.products)
+  const dispatch = useDispatch()
+
+  useEffect( ()=> {
+
+
+    axios.get('http://localhost:3000/products')
+    .then(res => {
+      dispatch(addProducts(res.data))
+      console.log(res.data)
+    })
+    .catch(err => console.log(err))
+    
+  }, [])
 
     return (
       <>
